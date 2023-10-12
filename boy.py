@@ -121,7 +121,7 @@ class AutoRun:
             if boy.action == 2: # 왼쪽 보고있다면
                 boy.dir, boy.action = -1, 0 # dir 왼쪽할당, png 0라인
             elif boy.action == 3: # 오른쪽 보고있ㄷ면
-                boy.dir, boy,action = 1, 1 # dir 오른쪽 할당, png 1라인
+                boy.dir, boy.action = 1, 1 # dir 오른쪽 할당, png 1라인
 
         # if right_down(e) or left_up(e): #오른쪽 run
         #     boy.dir, boy.action = 1, 1
@@ -148,7 +148,7 @@ class StateMachine:
     def __init__(self, boy): #2 boy가 자신을 StateMachine에게 전달
         self.boy = boy #3 전달 저장
         self.transitions = {
-            Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep},
+            Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep, autorun_down: AutoRun},
             Run: {right_down: Idle, left_down: Idle, left_up: Idle, right_up: Idle},
             Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle}
         }
