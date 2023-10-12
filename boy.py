@@ -146,7 +146,8 @@ class AutoRun:
 
     @staticmethod
     def draw(boy):
-        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
+        # 1.5배 증가된 이미지를 적용, y좌표 값도 조정
+        boy.big_autorun_image.clip_draw(boy.frame * 150, boy.action * 150, 150, 150, boy.x, boy.y + 15)
 
 
 class StateMachine:
@@ -194,6 +195,7 @@ class Boy:
         self.frame = 0
         self.action = 3
         self.image = load_image('animation_sheet.png')
+        self.big_autorun_image = load_image('animation_sheet_big.png') # AutoRun 발생 시 캐릭터 커짐
         self.state_machine = StateMachine(self) #2 자신의 정보 넘기기
         self.state_machine.start()
 
