@@ -122,6 +122,7 @@ class AutoRun:
                 boy.dir, boy.action = -1, 0 # dir 왼쪽할당, png 0라인
             elif boy.action == 3: # 오른쪽 보고있ㄷ면
                 boy.dir, boy.action = 1, 1 # dir 오른쪽 할당, png 1라인
+        boy.start_time = get_time() # 시간 확보
 
         # if right_down(e) or left_up(e): #오른쪽 run
         #     boy.dir, boy.action = 1, 1
@@ -142,6 +143,9 @@ class AutoRun:
             boy.dir, boy.action = -1, 0 # 방향 및 png 변환
         elif boy.x <= 0:
             boy.dir, boy.action = 1, 1
+
+        if get_time() - boy.start_time >= 5.0: # 확보한 시간이 5초가 된다면
+            boy.state_machine.handle_event(('TIME_OUT', 0)) # state_machine TIME_OUT 적용
         pass
 
     @staticmethod
@@ -157,7 +161,7 @@ class StateMachine:
             Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep, autorun_down: AutoRun},
             Run: {right_down: Idle, left_down: Idle, left_up: Idle, right_up: Idle},
             Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle},
-            AutoRun: {right_down: Run, left_down: Run, left_up: Run, right_up: Run} # AutoRun 변화 추가
+            AutoRun: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Idle} # AutoRun 변화 추가 + 시간 적용
         }
         self.cur_state = Idle
         self.table = {
