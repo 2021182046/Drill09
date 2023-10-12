@@ -150,7 +150,8 @@ class StateMachine:
         self.transitions = {
             Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep, autorun_down: AutoRun},
             Run: {right_down: Idle, left_down: Idle, left_up: Idle, right_up: Idle},
-            Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle}
+            Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle},
+            AutoRun: {right_down: Run, left_down: Run, left_up: Run, right_up: Run} # AutoRun 변화 추가
         }
         self.cur_state = Idle
         self.table = {
