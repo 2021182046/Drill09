@@ -117,10 +117,16 @@ class AutoRun:
 
     @staticmethod
     def enter(boy, e):
-        if right_down(e) or left_up(e): #오른쪽 run
-            boy.dir, boy.action = 1, 1
-        elif left_down(e) or right_up(e): #왼쪽 run
-            boy.dir, boy.action = -1, 0
+        if autorun_down(e): # 만약 키가 눌린것이 확인됐다면,
+            if boy.action == 2: # 왼쪽 보고있다면
+                boy.dir, boy.action = -1, 0 # dir 왼쪽할당, png 0라인
+            elif boy.action == 3: # 오른쪽 보고있ㄷ면
+                boy.dir, boy,action = 1, 1 # dir 오른쪽 할당, png 1라인
+
+        # if right_down(e) or left_up(e): #오른쪽 run
+        #     boy.dir, boy.action = 1, 1
+        # elif left_down(e) or right_up(e): #왼쪽 run
+        #     boy.dir, boy.action = -1, 0
 
     @staticmethod
     def exit(boy, e):
