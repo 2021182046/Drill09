@@ -59,12 +59,12 @@ class Idle:
 class Sleep:
 
     @staticmethod
-    def enter(boy):
+    def enter(boy, e):
         boy.frame=0
         print('고개 숙이기')
 
     @staticmethod
-    def exit(boy):
+    def exit(boy, e):
         print('고개 들기')
 
     @staticmethod
