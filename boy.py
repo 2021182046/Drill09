@@ -130,13 +130,18 @@ class AutoRun:
 
     @staticmethod
     def exit(boy, e):
-        print('달리기 멈춤')
+        print('AutoRun 멈춤')
         pass
 
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
         boy.x += boy.dir * 5 #이동 확인 및 속도
+
+        if boy.x >= 800: # boy의 x좌표값이 800(해상도 끝)을 넘는다면
+            boy.dir, boy.action = -1, 0 # 방향 및 png 변환
+        elif boy.x <= 0:
+            boy.dir, boy.action = 1, 1
         pass
 
     @staticmethod
