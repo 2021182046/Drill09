@@ -25,6 +25,11 @@ def left_down(e):
 def left_up(e):
     return e[0]== 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
 
+def autorun_down(e):
+    # AutoRun 이벤트를 위한 키가 눌렸다는 것을 확인
+    return e[0]== 'INPUT' and e[1].type == SDL_KEYDOWN
+
+
 
 class Idle:
 
@@ -84,6 +89,31 @@ class Sleep:
 
 
 class Run:
+
+    @staticmethod
+    def enter(boy, e):
+        if right_down(e) or left_up(e): #오른쪽 run
+            boy.dir, boy.action = 1, 1
+        elif left_down(e) or right_up(e): #왼쪽 run
+            boy.dir, boy.action = -1, 0
+
+    @staticmethod
+    def exit(boy, e):
+        print('달리기 멈춤')
+        pass
+
+    @staticmethod
+    def do(boy):
+        boy.frame = (boy.frame + 1) % 8
+        boy.x += boy.dir * 5 #이동 확인 및 속도
+        pass
+
+    @staticmethod
+    def draw(boy):
+        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
+
+
+class AutoRun:
 
     @staticmethod
     def enter(boy, e):
